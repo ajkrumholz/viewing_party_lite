@@ -1,4 +1,4 @@
-<h1><%= @user.name + "'s Dashboard" %></h1>
+<h1><%= @user.username + "'s Dashboard" %></h1>
 
 <div id="#discover-movie-btn">
   <%= button_to "Discover Movies", 
@@ -18,10 +18,10 @@
         <p><%= link_to party.movie_title, user_movie_path(@user, party.movie_id) %></p>
         <h3>Partygoers:</h3>
         <% party.users.each do |user| %>
-          <% if user.name == @user.name %>
-            <h4><%= "Host: #{user.name}" %></h4>
+          <% if user.username == @user.username %>
+            <h4><%= "Host: #{user.username}" %></h4>
           <% else %>
-            <p><%= user.name %></p>
+            <p><%= user.username %></p>
           <% end %>
         <% end %>
 
@@ -43,9 +43,9 @@
 
         <% party.users.each do |user| %>
           <% if user.id == party.host_id %>
-            <p>Host: <%= user.name %></p>
-          <% elsif user.name == @user.name %>
-            <p class="user-name"><b><%= user.name %></b></p>
+            <p>Host: <%= user.username %></p>
+          <% elsif user.username == @user.username %>
+            <p class="user-name"><b><%= user.username %></b></p>
           <% else %>
             <%= user.name %>
           <% end %>

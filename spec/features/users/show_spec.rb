@@ -23,7 +23,7 @@ RSpec.describe 'user dashboard' do
     end
 
     it 'displays a user name' do
-      expect(page).to have_content("#{user.name}'s Dashboard")
+      expect(page).to have_content("#{user.username}'s Dashboard")
     end
 
     it 'displays a discover movies button that links to a discover page for this specific user' do
@@ -49,9 +49,9 @@ RSpec.describe 'user dashboard' do
         sentence_element = find('p.user-name')
         expect(page).to have_xpath("//img[contains(@src, 'https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg')]")
         expect(page).to have_content(@viewing_party_2.start_time.strftime('The party starts at %I:%M %p on %B %d, %Y'))
-        expect(page).to have_content("Host: #{friend.name}")
-        expect(page).to have_content(user.name)
-        expect(sentence_element).to have_css('b', text: user.name.to_s)
+        expect(page).to have_content("Host: #{friend.username}")
+        expect(page).to have_content(user.username)
+        expect(sentence_element).to have_css('b', text: user.username.to_s)
       end
     end
 
@@ -68,8 +68,8 @@ RSpec.describe 'user dashboard' do
       within '#hosted-parties' do
         expect(page).to have_xpath("//img[contains(@src, 'https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg')]")
         expect(page).to have_content(@viewing_party_1.start_time.strftime('The party starts at %I:%M %p on %B %d, %Y'))
-        expect(page).to have_content(friend.name)
-        expect(page).to have_content("Host: #{user.name}")
+        expect(page).to have_content(friend.username)
+        expect(page).to have_content("Host: #{user.username}")
       end
     end
   end

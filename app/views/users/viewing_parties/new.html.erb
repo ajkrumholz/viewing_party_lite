@@ -20,7 +20,7 @@
     <% @friends.each do |user| %>
       <%= user_f.check_box user.id %>
       <%= user_f.label user.id, 
-        "#{user.name}(#{user.email})" %>
+        "#{user.username}(#{user.email})" %>
     </div>
     <% end %>
   <% end %>

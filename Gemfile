@@ -35,6 +35,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'rubocop-performance'
 gem 'rubocop-rails'
 gem 'rubocop-rspec'
+gem 'bcrypt'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 

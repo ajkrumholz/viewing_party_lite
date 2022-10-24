@@ -34,7 +34,7 @@ RSpec.describe 'The new viewing party page', :vcr do
 
       it 'should not show my name in the invite user box' do
         within '#user-subform' do
-          expect(page).not_to have_content(@host.name)
+          expect(page).not_to have_content(@host.username)
         end
       end
 
