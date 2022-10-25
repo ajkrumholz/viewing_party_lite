@@ -19,6 +19,7 @@ RSpec.describe 'user dashboard' do
       @vpu_4 = ViewingPartyUser.create!(user_id: friend.id, viewing_party_id: @viewing_party_1.id, hosting: false)
       @vpu_2 = ViewingPartyUser.create!(user_id: user.id, viewing_party_id: @viewing_party_2.id, hosting: false)
       @vpu_3 = ViewingPartyUser.create!(user_id: friend.id, viewing_party_id: @viewing_party_2.id, hosting: true)
+      allow_any_instance_of(ApplicationController).to receive(:user_id_in_session).and_return(user.id)
       visit user_path(user)
     end
 

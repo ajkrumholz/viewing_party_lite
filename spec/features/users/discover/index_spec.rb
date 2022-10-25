@@ -6,6 +6,7 @@ RSpec.describe 'the users discover index' do
   describe 'When I visit the users discover path' do
     let!(:user) { create :user }
     before :each do
+      allow_any_instance_of(ApplicationController).to receive(:user_id_in_session).and_return(user.id)
       visit user_discover_index_path(user)
     end
 
