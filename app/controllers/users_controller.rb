@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
-# allow_any_instance_of(ApplicationController).to receive(:user_id_in_session).and_return(user.id)?
-
 class UsersController < ApplicationController
   def show
-    @user = User.find(user_id_in_session)
-    @image_url_hash = MoviesFacade.images(@user.movie_ids)
+    if user_id_in_session
+      @user = User.find(user_id_in_session)
+      @image_url_hash = MoviesFacade.images(@user.movie_ids)
+    else
+      flash[:alert] = "You do not have permission to access this page, please log in or create an account"
+      redirect_to root_path
+    end
   end
 
   def new

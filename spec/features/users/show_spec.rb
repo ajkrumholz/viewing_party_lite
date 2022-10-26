@@ -20,7 +20,7 @@ RSpec.describe 'user dashboard' do
       @vpu_2 = ViewingPartyUser.create!(user_id: user.id, viewing_party_id: @viewing_party_2.id, hosting: false)
       @vpu_3 = ViewingPartyUser.create!(user_id: friend.id, viewing_party_id: @viewing_party_2.id, hosting: true)
       allow_any_instance_of(ApplicationController).to receive(:user_id_in_session).and_return(user.id)
-      visit user_path(user)
+      visit user_path
     end
 
     it 'displays a user name' do
@@ -72,6 +72,18 @@ RSpec.describe 'user dashboard' do
         expect(page).to have_content(friend.username)
         expect(page).to have_content("Host: #{user.username}")
       end
+    end
+
+    it 'has a button to log user out' do
+      expect(page).to have_link "Log Out"
+
+      click_link "Log Out"
+
+      expect(current_path).to eq(root_path)
+      allow_any_instance_of(ApplicationController).to receive(:user_id_in_session).and_return(nil)
+
+      visit user_path
+      expect(current_path).not_to eq(user_path)
     end
   end
 end

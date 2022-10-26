@@ -20,4 +20,10 @@ class LoginController < ApplicationController
       render :index
     end
   end
+
+  def destroy
+    session.delete(user_id_in_session)
+    flash[:alert] = "You have successfully logged out"
+    redirect_to root_path
+  end
 end
