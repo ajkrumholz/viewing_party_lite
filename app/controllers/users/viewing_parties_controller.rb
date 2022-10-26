@@ -3,14 +3,13 @@
 module Users
   class ViewingPartiesController < ApplicationController
     def new
-      @host = User.find(params[:user_id])
+      @host = User.find(user_id_in_session)
       @friends = @host.friends
       @movie = MoviesFacade.details(params[:movie_id])
-      #@current_time = DateTime.now
     end
 
     def create
-      host = User.find(params[:user_id])
+      host = User.find(user_id_in_session)
       invitees = User.invited_users(params[:users])
       viewing_party = ViewingParty.new(viewing_party_params)
       if params[:duration] >= params[:movie_duration]
@@ -22,11 +21,11 @@ module Users
           end
           redirect_to user_path(host)
         else
-          redirect_to new_user_movie_viewing_party_path(host, params[:movie_id])
+          redirect_to new_user_movie_viewing_party_path(params[:movie_id])
           flash[:alert] = "Error: #{error_message(viewing_party.errors)}"
         end
       else
-        redirect_to new_user_movie_viewing_party_path(host, params[:movie_id])
+        redirect_to new_user_movie_viewing_party_path(params[:movie_id])
         flash[:alert] = 'Error: Duration cannot be shorter than movie runtime'
       end
     end

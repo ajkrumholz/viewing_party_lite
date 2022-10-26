@@ -1,0 +1,12 @@
+<h1>Viewing Party</h1>
+
+<%= link_to "Register as a User", register_path, method: :get %>
+
+<%= link_to "I already have an account", login_path, method: :get %>
+
+<p>Registered Users</p>
+<ul>
+  <% @users.each do |user| %>
+    <li><%= user.email %></li>
+  <% end %>
+</ul>

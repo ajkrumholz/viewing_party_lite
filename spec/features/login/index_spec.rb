@@ -28,4 +28,18 @@ RSpec.describe 'Logging in' do
     expect(current_path).to eq(login_path)
     expect(page).to have_content("Incorrect password, please try again")
   end
+
+  it 'displays an error if username doesnt exist' do
+    user = create :user
+    visit root_path
+
+    click_on "I already have an account"
+
+    fill_in :username, with: "wrong_username"
+    fill_in :password, with: user.password
+    click_on "Log in"
+    
+    expect(current_path).to eq(login_path)
+    expect(page).to have_content("Incorrect username, please try again, or create a new account")
+  end
 end

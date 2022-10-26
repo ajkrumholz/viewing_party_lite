@@ -19,7 +19,7 @@ module Users
     private
 
     def set_user
-      @user = User.find(params[:user_id])
+      @user = User.find(user_id_in_session)
     end
   end
 end

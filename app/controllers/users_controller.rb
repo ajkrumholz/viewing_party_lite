@@ -2,18 +2,24 @@
 
 class UsersController < ApplicationController
   def show
-    @user = User.find(params[:id])
-    @image_url_hash = MoviesFacade.images(@user.movie_ids)
+    if user_id_in_session
+      @user = User.find(user_id_in_session)
+      @image_url_hash = MoviesFacade.images(@user.movie_ids)
+    else
+      flash[:alert] = "You do not have permission to access this page, please log in or create an account"
+      redirect_to root_path
+    end
   end
 
   def new
-    @user = User.new
+
   end
 
   def create
     user = User.new(user_params)
     if user.save
-      redirect_to user_path(user.id)
+      session[:user_id] = user.id
+      redirect_to user_path(user)
       flash[:alert] = "Welcome #{user.username}!"
     else
       redirect_to register_path
@@ -21,7 +27,9 @@ class UsersController < ApplicationController
     end
   end
 
+  private
+
   def user_params
-    params.require(:user).permit(:username, :password, :password_confirmation, :email)
+    params.permit(:username, :password, :password_confirmation, :email)
   end
 end
